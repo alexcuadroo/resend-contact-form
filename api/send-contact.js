@@ -52,8 +52,7 @@ module.exports = async function handler(req, res) {
       from: FROM_EMAIL,
       to: [TO_EMAIL],
       subject: `Nuevo mensaje de ${safeName} a través del formulario de contacto`,
-      html: `<!DOCTYPE html>
-<html lang="es">
+      html: `<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,14 +61,6 @@ module.exports = async function handler(req, res) {
     <title>Nuevo Mensaje de Contacto</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        /* Definición de colores: 
-           - Principal: #0077B6 (Azul Brillante)
-           - Secundario: #03045E (Azul Marino Profundo)
-           - Fondo Suave: #F0F8FF (Azul Muy Claro/Alicia Azul)
-           - Gradiente: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%)
-        */
-        
         * {
             margin: 0;
             padding: 0;
@@ -82,7 +73,7 @@ module.exports = async function handler(req, res) {
                 max-width: 100% !important;
             }
             .content {
-                padding: 20px !important;
+                padding: 0px !important;
             }
             .header-content {
                 padding: 30px 20px !important;
@@ -121,13 +112,13 @@ module.exports = async function handler(req, res) {
     </style>
 </head>
 <body style="margin: 0; padding: 0; background: #F0F8FF; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%; padding: 40px 10px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%; padding: 10px 10px;">
         <tr>
             <td align="center">
-                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" class="container" style="max-width: 600px; width: 100%; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" class="container" style="max-width: 600px; width: 100%; background: #ffffff; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
                     
                     <tr>
-                        <td class="header-content" style="padding: 50px 40px; background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%); position: relative; text-align: center;">
+                        <td class="header-content" style="padding: 0px; background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%); position: relative; text-align: center;">
                             <div style="position: relative; z-index: 2;">
                                 <div style="display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -246,8 +237,8 @@ module.exports = async function handler(req, res) {
                     
                     <tr>
                         <td style="background: #03045E; padding: 30px 40px; text-align: center;">
-                            <p style="margin: 0 0 8px 0; color: #9ca3af; font-size: 13px; line-height: 1.6;">
-                                Este es un correo automático. Por favor no respondas a esta dirección.
+                            <p style="margin: 0 0 8px 0; color: #9ca3af; font-size: 13px; line-height: 1.6;">   
+                                Este es un correo automático.
                             </p>
                             <p style="margin: 0; color: #6b7280; font-size: 12px;">
                                 © ${new Date().getFullYear()} Todos los derechos reservados
