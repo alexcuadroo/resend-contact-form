@@ -35,10 +35,23 @@ module.exports = async function handler(req, res) {
       });
     }
 
+    // Sanitización básica para prevenir inyección de HTML
+    const sanitize = (str) => str.replace(/[&<>"']/g, (m) => ({ 
+      '&': '&amp;', 
+      '<': '&lt;', 
+      '>': '&gt;', 
+      '"': '&quot;', 
+      "'": '&#39;' 
+    })[m]);
+
+    const safeName = sanitize(name);
+    const safeEmail = sanitize(email);
+    const safeMessage = sanitize(message);
+
     const emailContent = {
       from: FROM_EMAIL,
       to: [TO_EMAIL],
-      subject: `Nuevo mensaje de ${name} a través del formulario de contacto`,
+      subject: `Nuevo mensaje de ${safeName} a través del formulario de contacto`,
       html: `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -157,7 +170,7 @@ module.exports = async function handler(req, res) {
                                                             </td>
                                                             <td style="vertical-align: middle;">
                                                                 <p style="margin: 0 0 4px 0; color: #4b5563; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Nombre</p>
-                                                                <p style="margin: 0; color: #1f2937; font-size: 17px; font-weight: 600;">${name}</p>
+                                                                <p style="margin: 0; color: #1f2937; font-size: 17px; font-weight: 600;">${safeName}</p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -176,7 +189,7 @@ module.exports = async function handler(req, res) {
                                                             </td>
                                                             <td style="vertical-align: middle;">
                                                                 <p style="margin: 0 0 4px 0; color: #4b5563; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Email</p>
-                                                                <a href="mailto:${email}" style="margin: 0; color: #0077B6; font-size: 17px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;">${email}</a>
+                                                                <a href="mailto:${safeEmail}" style="margin: 0; color: #0077B6; font-size: 17px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s ease;">${safeEmail}</a>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -195,7 +208,7 @@ module.exports = async function handler(req, res) {
                                             Mensaje
                                         </h2>
                                         <div style="background: #f9fafb; padding: 20px; border-radius: 8px; border-left: 4px solid #0077B6;">
-                                            <div class="text-content" style="color: #374151; line-height: 1.8; font-size: 16px; word-wrap: break-word; font-weight: 400;">${message.replace(/\n/g, '<br>')}</div>
+                                            <div class="text-content" style="color: #374151; line-height: 1.8; font-size: 16px; word-wrap: break-word; font-weight: 400;">${safeMessage.replace(/\n/g, '<br>')}</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -204,7 +217,7 @@ module.exports = async function handler(req, res) {
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 24px;">
                                 <tr>
                                     <td align="center" style="padding: 20px 0;">
-                                        <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(0, 119, 182, 0.4); transition: all 0.3s ease;">
+                                        <a href="mailto:${safeEmail}" style="display: inline-block; background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(0, 119, 182, 0.4); transition: all 0.3s ease;">
                                             Responder Mensaje
                                         </a>
                                     </td>
@@ -252,11 +265,11 @@ module.exports = async function handler(req, res) {
       text: `
 Nuevo Mensaje de tu sección de Contacto
 
-Nombre: ${name}
-Email: ${email}
+Nombre: ${safeName}
+Email: ${safeEmail}
 
 Mensaje:
-${message}
+${safeMessage}
 
 Fecha: ${new Date().toLocaleString('es-UY', { timeZone: 'America/Montevideo' })}
       `
