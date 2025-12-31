@@ -226,7 +226,7 @@
     <div class="container">
       <h1>Contáctame</h1>
 
-      <div id="message" class="message" style="display: none"></div>
+      <div id="statusMessage" class="message" style="display: none"></div>
 
       <form id="contactForm">
         <div class="form-group">
@@ -297,7 +297,7 @@
 
           const submitBtn = document.getElementById("submitBtn");
           const loading = document.getElementById("loading");
-          const messageDiv = document.getElementById("message");
+          const messageDiv = document.getElementById("statusMessage");
           const form = document.getElementById("contactForm");
 
           const formData = {
@@ -352,7 +352,7 @@
         });
 
       function showMessage(text, type) {
-        const messageDiv = document.getElementById("message");
+        const messageDiv = document.getElementById("statusMessage");
         messageDiv.textContent = text;
         messageDiv.className = `message ${type}`;
         messageDiv.style.display = "block";
