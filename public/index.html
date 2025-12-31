@@ -235,7 +235,7 @@
             type="text"
             id="name"
             name="name"
-            autocomplete="off"
+            autocomplete="name"
             placeholder="Juan Pérez"
             required
           />
@@ -247,6 +247,7 @@
             type="email"
             id="email"
             name="email"
+            autocomplete="email"
             placeholder="mimail@ejemplo.com"
             required
             inputmode="email"
@@ -259,7 +260,7 @@
         <div class="form-group">
           <label for="message">Mensaje *</label>
           <textarea
-            id="messageText"
+            id="message"
             name="message"
             placeholder="Escribe tu mensaje aquí..."
             maxlength="500"
@@ -278,17 +279,20 @@
     </div>
 
     <script>
-      const messageText = document.getElementById('messageText');
+      const messageText = document.getElementById('message');
       const charCount = document.getElementById('charCount');
+      const contactForm = document.getElementById("contactForm");
 
       messageText.addEventListener('input', function() {
         const currentLength = this.value.length;
         charCount.textContent = `${currentLength} / 500`;
       });
 
-      document
-        .getElementById("contactForm")
-        .addEventListener("submit", async function (e) {
+      contactForm.addEventListener('reset', function() {
+        charCount.textContent = '0 / 500';
+      });
+
+      contactForm.addEventListener("submit", async function (e) {
           e.preventDefault();
 
           const submitBtn = document.getElementById("submitBtn");
@@ -299,7 +303,7 @@
           const formData = {
             name: document.getElementById("name").value.trim(),
             email: document.getElementById("email").value.trim(),
-            message: document.getElementById("messageText").value.trim(),
+            message: document.getElementById("message").value.trim(),
           };
 
           if (!formData.name || !formData.email || !formData.message) {
