@@ -4,15 +4,6 @@ const FROM_EMAIL = process.env.FROM_EMAIL || 'Contacto <onboarding@resend.dev>';
 const TO_EMAIL = process.env.TO_EMAIL;
 
 module.exports = async function handler(req, res) {
-  // CORS headers (temporal)
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
   if (!RESEND_API_KEY) {
     return res.status(500).json({
       error: 'RESEND_API_KEY no está configurada en las variables de entorno'
